@@ -5,6 +5,8 @@
  */
 namespace ShopGo\Locker\Model;
 
+use \ShopGo\Locker\Model\Backend;
+
 class Lock extends \Magento\Framework\Model\AbstractModel
 {
     /**
@@ -27,15 +29,25 @@ class Lock extends \Magento\Framework\Model\AbstractModel
     protected $_appState;
 
     /**
+     * Backend locker model
+     *
+     * @var \ShopGo\Locker\Model\Backend
+     */
+    protected $_backend;
+
+    /**
      * @param \Magento\Config\Model\Config\Factory $configFactory
      * @param \Magento\Framework\App\State $appState
+     * @param Backend $backend
      */
     public function __construct(
         \Magento\Config\Model\Config\Factory $configFactory,
-        \Magento\Framework\App\State $appState
+        \Magento\Framework\App\State $appState,
+        Backend $backend
     ) {
         $this->_configFactory = $configFactory;
         $this->_appState = $appState;
+        $this->_backend = $backend;
     }
 
     /**
@@ -112,9 +124,13 @@ class Lock extends \Magento\Framework\Model\AbstractModel
 
             $this->_setConfigData($configData);
 
-            $result = ($content && $content != 0)
-                ? __('Magento is now locked!')
-                : __('Magento is now unlocked!');
+            if ($content && $content != 0) {
+                $this->_backend->changeRole(Backend::LIMITED_ROLE);
+                $result = __('Magento is now locked!');
+            } else {
+                $this->_backend->changeRole(Backend::FULL_ROLE);
+                $result = __('Magento is now unlocked!');
+            }
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             $messages = explode("\n", $e->getMessage());
 

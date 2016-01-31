@@ -49,25 +49,15 @@ class Backend extends \Magento\Framework\Model\AbstractModel
     protected $_scopeConfig;
 
     /**
-     * Lock model
-     *
-     * @var \ShopGo\Locker\Model\Lock
-     */
-    protected $_lock;
-
-    /**
      * @param \Magento\User\Model\UserFactory $userFactory
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \ShopGo\Locker\Model\Lock $lock
      */
     public function __construct(
         \Magento\User\Model\UserFactory $userFactory,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \ShopGo\Locker\Model\Lock $lock
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
         $this->_userFactory = $userFactory;
         $this->_scopeConfig = $scopeConfig;
-        $this->_lock = $lock;
     }
 
     /**
@@ -128,10 +118,6 @@ class Backend extends \Magento\Framework\Model\AbstractModel
      */
     public function changeRole($access)
     {
-        if (!$this->_lock->getLockStatus()) {
-            return;
-        }
-
         $roleId = $this->_getRoleId($access);
         if (!$roleId) {
             return;

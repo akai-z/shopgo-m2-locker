@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 ShopGo. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="locker" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Locker</label>
+            <tab>shopgo</tab>
+            <resource>ShopGo_Locker::config_locker</resource>
+            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="admin_users" translate="label comment" type="textarea" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Admin Users</label>
+                    <comment>Comma separated</comment>
+                </field>
+                <field id="admin_user_limited_role" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Admin User Limited Role</label>
+                </field>
+                <field id="admin_user_full_role" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Admin User Full Role</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

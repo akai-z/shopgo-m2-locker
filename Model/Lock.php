@@ -5,8 +5,6 @@
  */
 namespace ShopGo\Locker\Model;
 
-use Magento\Framework\App\State;
-
 class Lock extends \Magento\Framework\Model\AbstractModel
 {
     /**

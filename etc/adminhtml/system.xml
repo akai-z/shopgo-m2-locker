@@ -24,9 +24,6 @@
                 <field id="admin_user_full_role" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Admin User Full Role</label>
                 </field>
-                <field id="store_secret_code" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Store Secret Code</label>
-                </field>
             </group>
         </section>
     </system>

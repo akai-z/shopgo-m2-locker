@@ -15,7 +15,7 @@ class SnsNotification implements ObserverInterface
     /**
      * Locker code
      */
-    const CODE = 'locker';
+    const CODE = 'ShopGo_Locker';
 
     /**
      * Set lock status action

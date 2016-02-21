@@ -54,7 +54,7 @@ class SnsNotification implements ObserverInterface
         switch ($notification['action']) {
             case self::ACTION_SET_LOCK_STATUS:
                 $this->_notification->setLockStatus(
-                    $notification['arguments']['lock_status']
+                    $notification['arguments']['status']
                 );
                 break;
         }

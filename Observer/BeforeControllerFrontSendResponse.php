@@ -6,6 +6,7 @@
 namespace ShopGo\Locker\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Controller\ResultFactory;
 
 /**
  * Before controller front send response observer
@@ -27,15 +28,25 @@ class BeforeControllerFrontSendResponse implements ObserverInterface
     protected $_appState;
 
     /**
+     * Result layout
+     *
+     * @var \Magento\Framework\View\Result\Layout
+     */
+    protected $_resultFactory;
+
+    /**
      * @param \ShopGo\Locker\Model\Lock $lock
      * @param \Magento\Framework\App\State $appState
+     * @param \Magento\Framework\View\Result\Layout $resultFactory
      */
     public function __construct(
         \ShopGo\Locker\Model\Lock $lock,
-        \Magento\Framework\App\State $appState
+        \Magento\Framework\App\State $appState,
+        ResultFactory $resultFactory
     ) {
         $this->_lock = $lock;
         $this->_appState = $appState;
+        $this->_resultFactory = $resultFactory;
     }
 
     /**
@@ -47,11 +58,17 @@ class BeforeControllerFrontSendResponse implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         if ($this->_lock->getLockStatus() && $this->_appState->getAreaCode() == 'frontend') {
+            /** @var \Magento\Framework\View\Result\Layout $resultLayout */
+            $resultLayout = $this->_resultFactory->create(ResultFactory::TYPE_LAYOUT);
+            $html = $resultLayout->getLayout()->createBlock('Magento\Framework\View\Element\Template')
+                ->setTemplate('ShopGo_Locker::out_of_service.phtml')
+                ->toHtml();
+
             $response = $observer->getEvent()->getResponse();
 
             $response->setHttpResponseCode(403);
-            $response->setHeader('Content-Type', 'text/plain');
-            $response->setBody('Out of Service!');
+            $response->setHeader('Content-Type', 'text/html; charset=utf-8');
+            $response->setBody($html);
         }
     }
 }

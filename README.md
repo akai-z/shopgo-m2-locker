@@ -4,11 +4,12 @@ Locker
 
 ## Synopsis
 
-TODO
+A module that allows to lock/unlock Magento 2 website.
 
 ## Overview
 
-TODO
+Locker module adds CLI commands that allow users to lock/unlock their Magento 2 websites.
+It also has the ability to listen to specific Amazon SNS module notifications to lock/unlock stores.
 
 ## Installation
 

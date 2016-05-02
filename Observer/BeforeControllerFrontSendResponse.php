@@ -60,7 +60,7 @@ class BeforeControllerFrontSendResponse implements ObserverInterface
         if ($this->_lock->getLockStatus() && $this->_appState->getAreaCode() == 'frontend') {
             /** @var \Magento\Framework\View\Result\Layout $resultLayout */
             $resultLayout = $this->_resultFactory->create(ResultFactory::TYPE_LAYOUT);
-            $html = $resultLayout->getLayout()->createBlock('Magento\Framework\View\Element\Template')
+            $html = $resultLayout->getLayout()->createBlock('ShopGo\Locker\Block\Adminhtml\Head')
                 ->setTemplate('ShopGo_Locker::out_of_service.phtml')
                 ->toHtml();
 

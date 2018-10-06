@@ -1,6 +1,7 @@
 Locker `[UNMAINTAINED]`
 =======================
 
+## `Latest code can be found in develop branch.`
 
 ## Synopsis
 
